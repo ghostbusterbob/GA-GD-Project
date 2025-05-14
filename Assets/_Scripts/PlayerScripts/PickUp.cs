@@ -13,7 +13,7 @@ public class PickUp : MonoBehaviour
     private GameObject heldObject;
 
     private GameObject objectInHand;
-    private bool pickedUpWeapon = false;
+    public bool pickedUpWeapon = false;
     private bool lerping = false;
     private bool handLerping = false;
     private bool addedForce = false;
