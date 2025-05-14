@@ -3,20 +3,8 @@ using UnityEngine.InputSystem.XR;
 
 public class test : MonoBehaviour
 {
-    public static test instance; //Declare a singleton
-
-    private float CurrentXp;
-
-    void Awake()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (instance == null)
-        {
-            instance = this; //Assign current instance to the singleton
-        }
+        XPsystem.instance.AddXpOnEnemyDeath();
     }
-    public void IncreaseXP(float amount)
-    {
-        CurrentXp += amount;
-    }
-
 }

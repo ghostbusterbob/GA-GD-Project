@@ -14,6 +14,7 @@ public class XPsystem : MonoBehaviour
     public Slider XpProgressBar;
     void Update()
     {
+        CurrentXp = 0;
         //make on kill with enemy to add xp yes
         ExperienceText.text = CurrentXp + " / " + TartgetXp;
         ExperienceController();
@@ -30,5 +31,10 @@ public class XPsystem : MonoBehaviour
             Level++;
             TartgetXp += 50;
         }
+    }
+    public void AddXpOnEnemyDeath()
+    {
+        CurrentXp += 15;
+        ExperienceController();
     }
 }

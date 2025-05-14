@@ -21,16 +21,15 @@ public class Enemymovement : MonoBehaviour
     private void Update()
     {
            agent.SetDestination(Player.transform.position);
-        //object(OnCollisionEnter);
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Player")
         {
             speed = 0f;
-            XPscript.instance.IncreaseXP (1);
+            XPsystem.instance.AddXpOnEnemyDeath();
+            gameObject.SetActive(false);
         }
-
-        }
+    }
 
 }
