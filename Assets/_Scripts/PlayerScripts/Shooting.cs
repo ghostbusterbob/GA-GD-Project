@@ -1,21 +1,29 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private TMP_Text BulletUI;
     public Camera camera;
     public PickUp pickup;
+    private int bulletCount = 30;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+
+        Debug.Log(bulletCount);
+        if (Input.GetKeyDown(KeyCode.Mouse0)&& pickup.pickedUpWeapon && bulletCount > 0)
         {
             weapon();
+            bulletCount -= 1;
+            updateBulletUI();
         }
     }
     void weapon()
@@ -23,12 +31,18 @@ public class Shooting : MonoBehaviour
         LayerMask layerMask = LayerMask.GetMask("Enemy");
 
         RaycastHit hit;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+
+        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)&& pickup.pickedUpWeapon) 
-            {
-                Destroy(hit.transform.gameObject);  
-            }
+            Destroy(hit.transform.gameObject);
+
+
         }
+
+    }
+
+    void updateBulletUI()
+    {
+        BulletUI.text = "30/" + bulletCount.ToString();
     }
 }

@@ -57,7 +57,7 @@ public class PickUp : MonoBehaviour
         if (handLerping)
         {
             objectInHand.transform.position = Vector3.Lerp(objectInHand.transform.position, PickupDropLocation.transform.position, 30f * Time.deltaTime);
-            objectInHand.transform.rotation = Quaternion.Lerp(objectInHand.transform.rotation, camera.transform.rotation, 10f * Time.deltaTime);
+            objectInHand.transform.rotation = Quaternion.Lerp(objectInHand.transform.rotation, camera.transform.rotation, 20f * Time.deltaTime);
         }
 
         void Pickup()
