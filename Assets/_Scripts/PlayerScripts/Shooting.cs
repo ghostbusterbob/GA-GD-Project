@@ -48,6 +48,7 @@ public class Shooting : MonoBehaviour
     {
         
             bulletCount = 30;
+            updateBulletUI() ;
         
     }
 
