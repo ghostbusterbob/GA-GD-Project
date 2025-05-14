@@ -76,6 +76,9 @@ public class PickUp : MonoBehaviour
                         if(objectInHand.tag == "weapon")
                         {
                             pickedUpWeapon = true;
+                        }else if(objectInHand == null)
+                        {
+                            pickedUpWeapon = false;
                         }
                     }
                 }

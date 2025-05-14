@@ -35,8 +35,6 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
             Destroy(hit.transform.gameObject);
-
-
         }
 
     }
