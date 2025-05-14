@@ -8,11 +8,17 @@ public class Enemymovement : MonoBehaviour
 {
     public GameObject Player;
     float speed = 3f;
+    private Animator animator;
+    public NavMeshAgent agent;  
 
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     private void Update()
     {
-           transform.LookAt(Player.transform.position);
-           transform.Translate(0, 0, speed * Time.deltaTime);
+           agent.SetDestination(Player.transform.position);
 
     }
     private void OnCollisionEnter(Collision obj)
@@ -20,6 +26,7 @@ public class Enemymovement : MonoBehaviour
         if (obj.gameObject.name == "Player")
         {
             speed = 0f;
+            
         }
 
         }
