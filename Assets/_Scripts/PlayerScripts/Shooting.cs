@@ -25,6 +25,10 @@ public class Shooting : MonoBehaviour
             bulletCount -= 1;
             updateBulletUI();
         }
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            reload();
+        }
     }
     void weapon()
     {
@@ -40,9 +44,16 @@ public class Shooting : MonoBehaviour
         }
 
     }
+    void reload()
+    {
+        
+            bulletCount = 30;
+        
+    }
 
     void updateBulletUI()
     {
         BulletUI.text = "30/" + bulletCount.ToString();
     }
+
 }
