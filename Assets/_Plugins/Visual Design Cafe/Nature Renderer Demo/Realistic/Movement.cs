@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float walkingSpeed = 3f;
-    public float runningSpeed = 5f;
-    public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
+    private float walkingSpeed = 3f;
+    private float runningSpeed = 5f;
+    private float jumpSpeed = 8.0f;
+    private float gravity = 20.0f;
     public Camera playerCamera;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
