@@ -4,5 +4,5 @@
 
 **3D Models**: https://github.com/ghostbusterbob1/GA-GD-Project/tree/main/Assets/Arts/3D%20Models
 
-Als er nog meer folders nodig zijn kan je deze gewoon aanmaken door een folder erin te slepen
+Als er nog meer folders nodig zijn kan je deze gewoon aanmaken door een folder uit je windows explorer erin te slepen
 :)
