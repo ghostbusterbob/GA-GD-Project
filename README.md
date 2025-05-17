@@ -4,5 +4,10 @@
 
 **3D Models**: https://github.com/ghostbusterbob1/GA-GD-Project/tree/main/Assets/Arts/3D%20Models
 
-Als er nog meer folders nodig zijn kan je deze gewoon aanmaken door een folder uit je windows explorer erin te slepen
+Als er nog meer folders nodig zijn/onbreken, kan je deze aanmaken door:
+
+* Klik op "Add File".
+* Daarna op "Create new file".
+* Typ in het tekstvak voor de bestandsnaam eerst de naam van de map die je wilt aanmaken.
+* Typ daarna een "/" voor de bestandsnaam. Hierdoor wordt er een map aangemaakt.
 :)
