@@ -5,7 +5,7 @@ public class XPscript : MonoBehaviour
 {
     public static XPscript instance; //Declare a singleton
 
-    private float CurrentXp;
+    public float CurrentXp;
 
     void Awake()
     {

@@ -9,13 +9,19 @@ public class XPsystem : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Text ExperienceText;
     [SerializeField] private int Level;
-    public float CurrentXp;
+
+    float CurrentXp;
     [SerializeField] private float TartgetXp;
     public Slider XpProgressBar;
+
+    public XPscript xpscript;
+
+    void Start()
+    {
+        CurrentXp = xpscript.CurrentXp;
+    }
     void Update()
     {
-        CurrentXp = 0;
-        //make on kill with enemy to add xp yes
         ExperienceText.text = CurrentXp + " / " + TartgetXp;
         ExperienceController();
     }

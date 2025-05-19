@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private TMP_Text BulletUI;
     public Camera camera;
     public PickUp pickup;
     private int bulletCount = 30;
+    public XPsystem XPsystem;
     void Start()
     {
         
@@ -38,8 +38,9 @@ public class Shooting : MonoBehaviour
 
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
+
+            XPsystem.instance.AddXpOnEnemyDeath();
             Destroy(hit.transform.gameObject);
-            XPscript.instance.IncreaseXP(1);
 
 
         }

@@ -27,8 +27,6 @@ public class Enemymovement : MonoBehaviour
         if (collision.gameObject.name == "Player")
         {
             speed = 0f;
-            XPsystem.instance.AddXpOnEnemyDeath();
-            gameObject.SetActive(false);
         }
     }
 
