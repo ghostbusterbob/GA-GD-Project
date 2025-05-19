@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
     public Camera camera;
     public PickUp pickup;
     private int bulletCount = 30;
+    public XPSCRIPT xp;
     void Start()
     {
         
@@ -38,8 +39,8 @@ public class Shooting : MonoBehaviour
 
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
+            xp.AddXP(15);
             Destroy(hit.transform.gameObject);
-            XPscript.instance.IncreaseXP(1);
 
 
         }
