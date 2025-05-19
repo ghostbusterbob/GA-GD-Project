@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.XR;
 
 
 public class Enemymovement : MonoBehaviour
@@ -9,7 +10,8 @@ public class Enemymovement : MonoBehaviour
     public GameObject Player;
     float speed = 3f;
     private Animator animator;
-    public NavMeshAgent agent;  
+    public NavMeshAgent agent;
+
 
 
     private void Start()
@@ -19,15 +21,15 @@ public class Enemymovement : MonoBehaviour
     private void Update()
     {
            agent.SetDestination(Player.transform.position);
-
     }
-    private void OnCollisionEnter(Collision obj)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (obj.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player")
         {
             speed = 0f;
-            
+            XPsystem.instance.AddXpOnEnemyDeath();
+            gameObject.SetActive(false);
         }
+    }
 
-        }
 }

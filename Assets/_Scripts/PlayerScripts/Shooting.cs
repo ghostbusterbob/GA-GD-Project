@@ -19,13 +19,13 @@ public class Shooting : MonoBehaviour
     {
 
         Debug.Log(bulletCount);
-        if (Input.GetKeyDown(KeyCode.Mouse0)&& pickup.pickedUpWeapon && bulletCount > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pickup.pickedUpWeapon && bulletCount > 0)
         {
             weapon();
             bulletCount -= 1;
             updateBulletUI();
         }
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.R))
         {
             reload();
         }
@@ -39,6 +39,7 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
             Destroy(hit.transform.gameObject);
+            XPscript.instance.IncreaseXP(1);
 
 
         }
@@ -46,10 +47,10 @@ public class Shooting : MonoBehaviour
     }
     void reload()
     {
-        
-            bulletCount = 30;
-            updateBulletUI() ;
-        
+
+        bulletCount = 30;
+        updateBulletUI();
+
     }
 
     void updateBulletUI()

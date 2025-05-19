@@ -73,10 +73,11 @@ public class PickUp : MonoBehaviour
                     {
                         objectInHand = inventory;
 
-                        if(objectInHand.tag == "weapon")
+                        if (objectInHand.tag == "weapon")
                         {
                             pickedUpWeapon = true;
-                        }else if(objectInHand == null)
+                        }
+                        else if (objectInHand == null)
                         {
                             pickedUpWeapon = false;
                         }
@@ -113,6 +114,6 @@ public class PickUp : MonoBehaviour
             }
         }
 
-        
+
     }
 }
