@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlayerModel
+  - weapon
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - Playermodel
   - 
   - 
-  - 
-  - 
+  - Pickup
+  - Enemy
   - 
   - 
   - 

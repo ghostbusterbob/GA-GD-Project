@@ -11,7 +11,7 @@ public class Shooting : MonoBehaviour
     private int bulletCount = 30;
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
