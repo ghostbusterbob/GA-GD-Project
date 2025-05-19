@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class GameData
 {
-    public int reload;
-
-    // The values defined in this constructor will be the default values
-    // The game starts with when there's no data to load
-
-
-    public GameData()
-    {
-       this.reload = 0;
-    }
+    public float[] position;
+    public int health;
+    public int score;
 }
 
