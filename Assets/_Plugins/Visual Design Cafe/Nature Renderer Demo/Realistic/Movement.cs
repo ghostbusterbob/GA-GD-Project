@@ -1,5 +1,6 @@
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -12,9 +13,6 @@ public class Movement : MonoBehaviour
     public float lookXLimit = 45.0f;
     public bool isRunning;
     private Animator animator;
-
-
-
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
@@ -23,12 +21,19 @@ public class Movement : MonoBehaviour
     public bool canMove = true;
     public bool appliedForce = false;
 
+        Vector3 currentRotation, targetRotation, targetPosition, currentPosition, initialGunPosition;
+        [SerializeField] float recoilX;
+    [SerializeField] float recoilY;
+    [SerializeField] float recoilZ;
+
+    [SerializeField] float kickBackZ;
+        public Transform cam;
+
+
 
     void Start()
     {
-
         characterController = GetComponent<CharacterController>();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -38,7 +43,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isRunning = true;
-            
+
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -93,6 +98,13 @@ public class Movement : MonoBehaviour
         //animator.SetBool("isWalking", !isRunning);
         //animator.SetBool("isSprinting", isRunning);
         //animator.SetBool("isIdle", isRunning);
+        
 
+    }
+
+    public void recoil()
+    {
+        targetPosition -= new Vector3(0, 0, kickBackZ);
+        targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
     }
 }
