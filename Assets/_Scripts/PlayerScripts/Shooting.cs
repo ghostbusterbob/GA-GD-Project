@@ -4,16 +4,12 @@ using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private TMP_Text BulletUI;
     public Camera camera;
     public PickUp pickup;
     private int bulletCount = 30;
-<<<<<<< HEAD
     public XPsystem xp;
-=======
-    public XPSCRIPT xp;
->>>>>>> origin/Ykada_-_Player
+    //public XPSCRIPT xp;
     void Start()
     {
         
@@ -39,12 +35,8 @@ public class Shooting : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
-<<<<<<< HEAD
             Debug.Log("Hit");
             xp.AddXpOnEnemyDeath();
-=======
-            xp.AddXP(15);
->>>>>>> origin/Ykada_-_Player
             Destroy(hit.transform.gameObject);
         }
     }
