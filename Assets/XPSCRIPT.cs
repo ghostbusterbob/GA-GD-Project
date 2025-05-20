@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class XPSCRIPT : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     int xp1 = 0;
     [SerializeField]Text xpText;
 

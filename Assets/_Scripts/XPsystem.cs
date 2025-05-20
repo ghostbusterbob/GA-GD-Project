@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -13,13 +14,8 @@ public class XPsystem : MonoBehaviour
     float CurrentXp;
     [SerializeField] private float TartgetXp;
     public Slider XpProgressBar;
+    //public int currentxplevel;
 
-    public XPscript xpscript;
-
-    void Start()
-    {
-        CurrentXp = xpscript.CurrentXp;
-    }
     void Update()
     {
         ExperienceText.text = CurrentXp + " / " + TartgetXp;
@@ -36,6 +32,7 @@ public class XPsystem : MonoBehaviour
             CurrentXp = CurrentXp - TartgetXp;
             Level++;
             TartgetXp += 50;
+
         }
     }
     public void AddXpOnEnemyDeath()

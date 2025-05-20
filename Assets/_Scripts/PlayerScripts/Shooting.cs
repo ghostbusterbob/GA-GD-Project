@@ -9,17 +9,19 @@ public class Shooting : MonoBehaviour
     public Camera camera;
     public PickUp pickup;
     private int bulletCount = 30;
+<<<<<<< HEAD
+    public XPsystem xp;
+=======
     public XPSCRIPT xp;
+>>>>>>> origin/Ykada_-_Player
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
 
-        Debug.Log(bulletCount);
+        //Debug.Log(bulletCount);
         if (Input.GetKeyDown(KeyCode.Mouse0) && pickup.pickedUpWeapon && bulletCount > 0)
         {
             weapon();
@@ -34,24 +36,22 @@ public class Shooting : MonoBehaviour
     void weapon()
     {
         LayerMask layerMask = LayerMask.GetMask("Enemy");
-
         RaycastHit hit;
-
         if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
+<<<<<<< HEAD
+            Debug.Log("Hit");
+            xp.AddXpOnEnemyDeath();
+=======
             xp.AddXP(15);
+>>>>>>> origin/Ykada_-_Player
             Destroy(hit.transform.gameObject);
-
-
         }
-
     }
     void reload()
     {
-
         bulletCount = 30;
         updateBulletUI();
-
     }
 
     void updateBulletUI()
