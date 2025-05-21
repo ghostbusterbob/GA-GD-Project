@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
     public PickUp pickup;
     private int bulletCount = 30;
     public XPsystem xp;
+    public Spawner Spawner;
     //public XPSCRIPT xp;
     void Start()
     {
@@ -38,6 +39,7 @@ public class Shooting : MonoBehaviour
             Debug.Log("Hit");
             xp.AddXpOnEnemyDeath();
             Destroy(hit.transform.gameObject);
+            Spawner.enemykilled();
         }
     }
     void reload()

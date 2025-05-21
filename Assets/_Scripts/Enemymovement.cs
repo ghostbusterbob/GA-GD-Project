@@ -20,7 +20,7 @@ public class Enemymovement : MonoBehaviour
     }
     private void Update()
     {
-           agent.SetDestination(Player.transform.position);
+           //agent.SetDestination(Player.transform.position);
     }
     private void OnCollisionEnter(Collision collision)
     {
