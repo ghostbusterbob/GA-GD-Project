@@ -1,18 +1,20 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
+using System.Text;
 public class PlayerData
 {
     public float[] position;
     public int health;
     public int score;
-    public int xpSYSTEM;
+    public int XPsystem;
 }
 public class GameDataManager : MonoBehaviour
 {
     public Transform playerTransform;
     public int health;
-    public int currentxplevel;
+    public int xpsystem;
 
     public void SaveGame()
     {
@@ -22,11 +24,11 @@ public class GameDataManager : MonoBehaviour
             health = this.health,
             // score = ScoreManager.scoreCount,
             //level = LevelManager.levelCount,
-            //xpSYSTEM = XPsystem.instance.currentxplevel
+            //XPsystem = XPsystem.instance.xpsystem
         };
 
         string json = JsonUtility.ToJson(playerData);
-        string path = Application.persistentDataPath + "/playerData.json";
+        string path = Application.persistentDataPath + "data/playerData.json";
         System.IO.File.WriteAllText(path, json);
     }
 
