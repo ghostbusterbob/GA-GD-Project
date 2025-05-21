@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512453b048ad12c4993f8e05a1b74205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 1851934909911486184, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
   agent: {fileID: 3435748059736752338}
 --- !u!195 &3435748059736752338
 NavMeshAgent:
@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de9aa6c38ea5d5468a7eaaed6d8babf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelText: {fileID: 0}
+  ExperienceText: {fileID: 0}
+  Level: 0
+  TartgetXp: 100
+  XpProgressBar: {fileID: 0}
 --- !u!136 &7323412477097244542
 CapsuleCollider:
   m_ObjectHideFlags: 0
