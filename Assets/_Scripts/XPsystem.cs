@@ -43,13 +43,14 @@ public class XPsystem : MonoBehaviour
 
     void Update()
     {
-        ExperienceText.text = CurrentXp + " / " + TartgetXp;
+        ExperienceText.text = "Expirience: " + CurrentXp + " / " + TartgetXp;
         ExperienceController();
     }
 
     public void ExperienceController()
     {
-        LevelText.text = Level.ToString();
+        //LevelText.text = Level.ToString();
+        LevelText.text = "Level: " + Level.ToString();
         XpProgressBar.value = (CurrentXp / TartgetXp);
 
         if (CurrentXp >= TartgetXp)

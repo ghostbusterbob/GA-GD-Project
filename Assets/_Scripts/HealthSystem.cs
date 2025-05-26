@@ -9,6 +9,7 @@ public class HealthSystem : MonoBehaviour
     public float currentHealth;
     private float damage = 10f;
     private float healing = 5f;
+    public Slider healthSlider;
     public XPsystem xpSystem;
     private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
@@ -24,6 +25,7 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         healthText.text = " Health " + currentHealth;
+        healthSlider.value = currentHealth / maxHealth;
         if (currentHealth <= 1)
         {
             deathhealth();

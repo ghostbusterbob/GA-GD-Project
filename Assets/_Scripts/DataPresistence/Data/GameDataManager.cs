@@ -17,7 +17,6 @@ public class GameDataManager : MonoBehaviour
     {
         LoadGame();
     }
-
     public void SaveGame()
     {
         PlayerData playerData = new PlayerData
@@ -28,7 +27,6 @@ public class GameDataManager : MonoBehaviour
         string path = Application.persistentDataPath + "/playerData.json";
         File.WriteAllText(path, json);
     }
-
     public void LoadGame()
     {
         string path = Application.persistentDataPath + "/playerData.json";
