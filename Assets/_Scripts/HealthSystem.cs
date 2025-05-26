@@ -22,6 +22,10 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         healthText.text = " Health " + currentHealth;
+        if (currentHealth <= 1)
+        {
+            deathhealth();
+        }
     }
     private void OnApplicationQuit()
     {
@@ -88,5 +92,14 @@ public class HealthSystem : MonoBehaviour
     {
         public float currentHealth;
     }
-    
+    public void deathhealth()
+    {
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+            currentHealth = currentHealth + 100f;
+            SaveHealthData();
+            gameObject.SetActive(false);
+        }
+    }
 }
