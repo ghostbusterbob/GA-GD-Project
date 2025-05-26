@@ -3,24 +3,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Text;
+using Unity.VisualScripting;
 public class PlayerData
 {
     public float[] position;
     public int health;
     public int score;
     public int XPsystem;
+    public Vector3 playerposition;
 }
 public class GameDataManager : MonoBehaviour
 {
     public Transform playerTransform;
     public int health;
     public int xpsystem;
+    public Vector3 playerposition;
 
     public void SaveGame()
     {
         PlayerData playerData = new PlayerData
         {
-            position = new float[] { playerTransform.position.x, playerTransform.position.y, playerTransform.position.z },
+            //position = new Vector3[] { playerTransform.position.x, playerTransform.position.y, playerTransform.position.z },
+            playerposition = new Vector3(playerTransform.position.x , playerTransform.position.y , playerTransform.position.z),   
             health = this.health,
             // score = ScoreManager.scoreCount,
             //level = LevelManager.levelCount,
