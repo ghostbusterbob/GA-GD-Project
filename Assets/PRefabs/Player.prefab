@@ -905,6 +905,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfff84b21ca81ef429621c19ac671e82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5520840789534493383}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfff84b21ca81ef429621c19ac671e82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6898686626547881245}
   m_SourcePrefab: {fileID: 100100000, guid: dfff84b21ca81ef429621c19ac671e82, type: 3}
 --- !u!4 &1367040749289018450 stripped
 Transform:
@@ -1014,6 +1017,8 @@ MonoBehaviour:
   BulletUI: {fileID: 0}
   camera: {fileID: 7485721747757418192}
   pickup: {fileID: 0}
+  xp: {fileID: 0}
+  Spawner: {fileID: 0}
 --- !u!136 &1754180521746453152
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1197,6 +1202,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   pickedUpWeapon: 0
+--- !u!114 &6898686626547881245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851934909911486184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29652df7f28027041a199a0a8bc82b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5042289555549818938
 PrefabInstance:
   m_ObjectHideFlags: 0
