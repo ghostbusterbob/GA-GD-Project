@@ -1,13 +1,15 @@
 ﻿using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem instanceHealth;
-    public float maxHealth = 100f;
-    public float currentHealth;
-    public float damage = 10f;
-    public float healing = 5f;
+    private float maxHealth = 100f;
+    private float currentHealth;
+    private float damage = 10f;
+    private float healing = 5f;
+    public TMPro.TextMeshProUGUI healthText;
 
     private string saveFilePath;
 
@@ -19,6 +21,7 @@ public class HealthSystem : MonoBehaviour
     }
     private void Update()
     {
+        healthText.text = " Health " + currentHealth;
     }
     private void OnApplicationQuit()
     {
@@ -85,4 +88,5 @@ public class HealthSystem : MonoBehaviour
     {
         public float currentHealth;
     }
+    
 }
