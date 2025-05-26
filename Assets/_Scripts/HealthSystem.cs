@@ -6,9 +6,11 @@ public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem instanceHealth;
     private float maxHealth = 100f;
-    private float currentHealth;
+    public float currentHealth;
     private float damage = 10f;
     private float healing = 5f;
+    public XPsystem xpSystem;
+    private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
 
     private string saveFilePath;
@@ -99,7 +101,8 @@ public class HealthSystem : MonoBehaviour
             Debug.Log("Player is dead");
             currentHealth = currentHealth + 100f;
             SaveHealthData();
-            gameObject.SetActive(false);
+            XPsystem.instance.ResetXpData();
+            player.SetActive(false);
         }
     }
 }

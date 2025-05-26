@@ -22,9 +22,8 @@ public class XPsystem : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Text ExperienceText;
     [SerializeField] private int Level;
-
     private float CurrentXp;
-    [SerializeField] private float TartgetXp = 100; // Default starting XP needed
+    [SerializeField] private float TartgetXp = 100;
 
     public Slider XpProgressBar;
 
@@ -99,6 +98,15 @@ public class XPsystem : MonoBehaviour
             Debug.Log("No save file found, starting fresh.");
         }
     }
+    public void ResetXpData()
+    {
+        CurrentXp = 0;
+        Level = 1;
+        TartgetXp = 100;
+        SaveXpData();
+        Debug.Log("XP Data Reset");
+    }
+
     [System.Serializable]
     public class XpSaveData
     {
