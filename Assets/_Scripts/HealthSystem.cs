@@ -65,7 +65,6 @@ public class HealthSystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("XP Data Saved");
     }
 
     public void LoadHealthData()
@@ -76,8 +75,6 @@ public class HealthSystem : MonoBehaviour
             Healthsavedata data = JsonUtility.FromJson<Healthsavedata>(json);
 
             currentHealth = data.currentHealth;
-
-            Debug.Log("XP Data Loaded");
         }
         else
         {

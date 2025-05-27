@@ -1,14 +1,19 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerData
 {
     public Vector3 position;
+    public List<Transform> enemyPositions;
 }
 public class GameDataManager : MonoBehaviour
 {
     public Transform playerTransform;
+    public Transform[] enemyPositions;
     private void OnApplicationQuit()
     {
         SaveGame();
@@ -21,7 +26,7 @@ public class GameDataManager : MonoBehaviour
     {
         PlayerData playerData = new PlayerData
         {
-            position = playerTransform.position
+            position = playerTransform.position,
         };
         string json = JsonUtility.ToJson(playerData);
         string path = Application.persistentDataPath + "/playerData.json";

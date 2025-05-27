@@ -78,7 +78,6 @@ public class XPsystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("XP Data Saved");
     }
 
     public void LoadXpData()
@@ -91,8 +90,6 @@ public class XPsystem : MonoBehaviour
             CurrentXp = data.currentXp;
             Level = data.level;
             TartgetXp = data.targetXp;
-
-            Debug.Log("XP Data Loaded");
         }
         else
         {
@@ -107,7 +104,6 @@ public class XPsystem : MonoBehaviour
         SaveXpData();
         Debug.Log("XP Data Reset");
     }
-
     [System.Serializable]
     public class XpSaveData
     {
