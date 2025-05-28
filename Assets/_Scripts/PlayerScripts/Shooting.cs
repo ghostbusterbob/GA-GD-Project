@@ -30,7 +30,7 @@ public class Shooting : MonoBehaviour
             reload();
         }
     }
-    void weapon()
+    public void weapon()
     {
         LayerMask layerMask = LayerMask.GetMask("Enemy");
         RaycastHit hit;

@@ -9,6 +9,8 @@ public class Recoi : MonoBehaviour
     public Transform cam;
     [SerializeField] GameObject gun;
     [SerializeField] GameObject ADSTarget;
+    [SerializeField] GameObject muzzleFlash;
+    [SerializeField] Shooting shooting;
 
 
     public float recoilX;
@@ -31,6 +33,8 @@ public class Recoi : MonoBehaviour
     private float originalRecoilY;
     private float originalRecoilZ;
     private float originalKickBackZ;
+
+    private bool appliedRecoil = false;
 
     
 
@@ -98,13 +102,23 @@ public class Recoi : MonoBehaviour
         while (Input.GetKey(KeyCode.Mouse0))
         {
             ApplyRecoil();
+            shooting.weapon();
+            muzzleFlash.SetActive(true);
             yield return new WaitForSeconds(fireRate);
+            muzzleFlash.SetActive(false);
+
         }
         isShooting = false;
     }
 
     public void ApplyRecoil()
     {
+        if (!appliedRecoil)
+        {
+            muzzleFlash.SetActive(true);
+            appliedRecoil = true;
+
+        }
         targetPosition -= new Vector3(0, 0, kickBackZ);
         targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
     }
