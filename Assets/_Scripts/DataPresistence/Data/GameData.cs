@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameData
 {
-    public float[] position;
-    public int health;
-    public int score;
+    //public Vector3 playerposition;
 }
 

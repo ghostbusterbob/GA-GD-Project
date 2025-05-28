@@ -35,10 +35,9 @@ public class PickUp : MonoBehaviour
         {
             heldObject.transform.position = Vector3.Lerp(heldObject.transform.position, objectInHand.transform.position, 10f * Time.deltaTime);
             heldObject.transform.rotation = Quaternion.Lerp(heldObject.transform.rotation, objectInHand.transform.rotation, 10f * Time.deltaTime);
-            heldObject.transform.localScale = Vector3.Lerp(heldObject.transform.localScale, objectInHand.transform.localScale, 10f * Time.deltaTime);
             float dist = Vector3.Distance(heldObject.transform.position, objectInHand.transform.position);
 
-            if (dist < .01f)
+            if (dist < .1f)
             {
                 heldObject.SetActive(false);
                 objectInHand.SetActive(true);

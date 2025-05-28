@@ -6,9 +6,12 @@ public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem instanceHealth;
     private float maxHealth = 100f;
-    private float currentHealth;
+    public float currentHealth;
     private float damage = 10f;
     private float healing = 5f;
+    public Slider healthSlider;
+    public XPsystem xpSystem;
+    private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
 
     private string saveFilePath;
@@ -22,6 +25,11 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         healthText.text = " Health " + currentHealth;
+        healthSlider.value = currentHealth / maxHealth;
+        if (currentHealth <= 1)
+        {
+            deathhealth();
+        }
     }
     private void OnApplicationQuit()
     {
@@ -57,7 +65,6 @@ public class HealthSystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("XP Data Saved");
     }
 
     public void LoadHealthData()
@@ -68,8 +75,6 @@ public class HealthSystem : MonoBehaviour
             Healthsavedata data = JsonUtility.FromJson<Healthsavedata>(json);
 
             currentHealth = data.currentHealth;
-
-            Debug.Log("XP Data Loaded");
         }
         else
         {
@@ -88,5 +93,15 @@ public class HealthSystem : MonoBehaviour
     {
         public float currentHealth;
     }
-    
+    public void deathhealth()
+    {
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+            currentHealth = currentHealth + 100f;
+            SaveHealthData();
+            XPsystem.instance.ResetXpData();
+            player.SetActive(false);
+        }
+    }
 }
