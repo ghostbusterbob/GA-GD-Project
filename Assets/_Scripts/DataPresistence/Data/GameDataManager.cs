@@ -8,7 +8,6 @@ using UnityEngine;
 public class PlayerData
 {
     public Vector3 position;
-    public List<Transform> enemyPositions;
 }
 public class GameDataManager : MonoBehaviour
 {
@@ -28,6 +27,11 @@ public class GameDataManager : MonoBehaviour
         {
             position = playerTransform.position,
         };
+        //enemyPositions = GameObject.FindGameObjectsWithTag("Enemy").Select(e => e.transform).ToArray();
+
+
+
+
         string json = JsonUtility.ToJson(playerData);
         string path = Application.persistentDataPath + "/playerData.json";
         File.WriteAllText(path, json);

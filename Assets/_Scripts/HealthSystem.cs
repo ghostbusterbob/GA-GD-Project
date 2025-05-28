@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem instanceHealth;
-    private float maxHealth = 100f;
+    private float maxHealth = 1000f;
     public float currentHealth;
-    private float damage = 10f;
+    private float damage = 1f;
     private float healing = 5f;
     public Slider healthSlider;
     public XPsystem xpSystem;
