@@ -1,49 +1,42 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-using System.Text;
+
+[System.Serializable]
 public class PlayerData
 {
-    public float[] position;
-    public int health;
-    public int score;
-    public int XPsystem;
+    public Vector3 position;
+    public List<Transform> enemyPositions;
 }
 public class GameDataManager : MonoBehaviour
 {
     public Transform playerTransform;
-    public int health;
-    public int xpsystem;
-
+    public Transform[] enemyPositions;
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+    private void Start()
+    {
+        LoadGame();
+    }
     public void SaveGame()
     {
         PlayerData playerData = new PlayerData
         {
-            position = new float[] { playerTransform.position.x, playerTransform.position.y, playerTransform.position.z },
-            health = this.health,
-            // score = ScoreManager.scoreCount,
-            //level = LevelManager.levelCount,
-            //XPsystem = XPsystem.instance.xpsystem
+            position = playerTransform.position,
         };
-
         string json = JsonUtility.ToJson(playerData);
-        string path = Application.persistentDataPath + "data/playerData.json";
-        System.IO.File.WriteAllText(path, json);
+        string path = Application.persistentDataPath + "/playerData.json";
+        File.WriteAllText(path, json);
     }
-
     public void LoadGame()
     {
         string path = Application.persistentDataPath + "/playerData.json";
-        if (File.Exists(path)) 
-        {
-           string json = System.IO.File.ReadAllText(path);
-            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
-
-            //update player's transform position
-            playerTransform.position = new Vector3(loadedData.position[0], loadedData.position[1], loadedData.position[2]);
-            
-        }
-
+        string json = File.ReadAllText(path);
+        PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
+        playerTransform.position = loadedData.position;
     }
 }

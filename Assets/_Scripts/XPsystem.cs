@@ -22,9 +22,8 @@ public class XPsystem : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Text ExperienceText;
     [SerializeField] private int Level;
-
     private float CurrentXp;
-    [SerializeField] private float TartgetXp = 100; // Default starting XP needed
+    [SerializeField] private float TartgetXp = 100;
 
     public Slider XpProgressBar;
 
@@ -44,13 +43,14 @@ public class XPsystem : MonoBehaviour
 
     void Update()
     {
-        ExperienceText.text = CurrentXp + " / " + TartgetXp;
+        ExperienceText.text = "Expirience: " + CurrentXp + " / " + TartgetXp;
         ExperienceController();
     }
 
     public void ExperienceController()
     {
-        LevelText.text = Level.ToString();
+        //LevelText.text = Level.ToString();
+        LevelText.text = "Level: " + Level.ToString();
         XpProgressBar.value = (CurrentXp / TartgetXp);
 
         if (CurrentXp >= TartgetXp)
@@ -78,7 +78,6 @@ public class XPsystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("XP Data Saved");
     }
 
     public void LoadXpData()
@@ -91,13 +90,19 @@ public class XPsystem : MonoBehaviour
             CurrentXp = data.currentXp;
             Level = data.level;
             TartgetXp = data.targetXp;
-
-            Debug.Log("XP Data Loaded");
         }
         else
         {
             Debug.Log("No save file found, starting fresh.");
         }
+    }
+    public void ResetXpData()
+    {
+        CurrentXp = 0;
+        Level = 1;
+        TartgetXp = 100;
+        SaveXpData();
+        Debug.Log("XP Data Reset");
     }
     [System.Serializable]
     public class XpSaveData
