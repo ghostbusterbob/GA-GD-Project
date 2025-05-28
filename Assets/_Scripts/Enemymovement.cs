@@ -17,16 +17,19 @@ public class Enemymovement : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {
+            if(agent != null)
            agent.SetDestination(Player.transform.position);
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.collider.gameObject == Player)
         {
-            speed = 0f;
+            
+            Debug.Log($"doe het pls");
         }
     }
 

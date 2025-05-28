@@ -62,6 +62,7 @@ public class EnemyLocationSaving : MonoBehaviour
 
         for (int i = 0; i < enemyPositions.Length; i++)
         {
+            if(enemyPositions != null)
             data.enemyPositions[i] = new SerializableVector3(enemyPositions[i].position);
         }
 
