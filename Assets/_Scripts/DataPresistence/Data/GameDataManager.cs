@@ -12,7 +12,6 @@ public class PlayerData
 public class GameDataManager : MonoBehaviour
 {
     public Transform playerTransform;
-    public Transform[] enemyPositions;
     private void OnApplicationQuit()
     {
         SaveGame();
@@ -27,7 +26,6 @@ public class GameDataManager : MonoBehaviour
         {
             position = playerTransform.position,
         };
-        //enemyPositions = GameObject.FindGameObjectsWithTag("Enemy").Select(e => e.transform).ToArray();
 
 
 
