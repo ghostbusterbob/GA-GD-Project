@@ -903,7 +903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
   m_sharedMaterial: {fileID: -8359713948753075837, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
   m_sharedMaterial: {fileID: -8359713948753075837, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
@@ -1691,7 +1691,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 'Play
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
   m_sharedMaterial: {fileID: -8359713948753075837, guid: b1bd990c7d09d1d469e4cd3b7e16bba9, type: 2}
