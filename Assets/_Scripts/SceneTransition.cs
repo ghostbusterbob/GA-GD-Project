@@ -25,6 +25,9 @@ public class SceneTransition : MonoBehaviour
         playButton.onClick.AddListener(LoadScene);
         SettingsButton.onClick.AddListener(pointCameraToSettings);
         backButton.onClick.AddListener(pointCameraMain);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void Update()
