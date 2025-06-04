@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/UI.unity
+    guid: 5d42ce89b9d3c894b8671d3b85cf6afe
+  - enabled: 1
     path: Assets/Scenes/KaasPlankje.unity
     guid: 6588720be441ba6439354eb6f4c21b05
   m_configObjects:
