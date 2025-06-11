@@ -4391,6 +4391,10 @@ PrefabInstance:
       propertyPath: BulletUI
       value: 
       objectReference: {fileID: 643132415}
+    - target: {fileID: 2187648061176314941, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+      propertyPath: locationSaving
+      value: 
+      objectReference: {fileID: 193271549}
     - target: {fileID: 3069819167657862627, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.581
