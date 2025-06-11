@@ -10,7 +10,7 @@ public class Shooting : MonoBehaviour
     private int bulletCount = 30;
     public XPsystem xp;
     public Spawner Spawner;
-    //public XPSCRIPT xp;
+    public EnemyLocationSaving locationSaving;
     void Start()
     {
         
@@ -40,6 +40,7 @@ public class Shooting : MonoBehaviour
             xp.AddXpOnEnemyDeath();
             Destroy(hit.transform.gameObject);
             Spawner.enemykilled();
+            locationSaving.respawnenemys();
         }
     }
     void reload()

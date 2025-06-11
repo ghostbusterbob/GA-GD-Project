@@ -128,4 +128,37 @@ public class EnemyLocationSaving : MonoBehaviour
             enemyPositions[i] = enemy.transform;
         }
     }
+    public void respawnenemys()
+    {
+        int currentCount = 0;
+        for (int i = 0; i < enemyPositions.Length; i++)
+        {
+            if (enemyPositions[i] != null)
+                currentCount++;
+            else
+                enemyPositions[i] = null;
+        }
+
+        int enemiesToSpawn = maxEnemies - currentCount;
+
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
+            randomPos.y = centerPoint.position.y;
+
+            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
+            enemy.tag = "Enemy";
+            for (int j = 0; j < enemyPositions.Length; j++)
+            {
+                if (enemyPositions[j] == null)
+                {
+                    enemyPositions[j] = enemy.transform;
+                    break;
+                }
+            }
+
+            Debug.Log($"Respawned enemy at {randomPos}");
+        }
+    }
 }
