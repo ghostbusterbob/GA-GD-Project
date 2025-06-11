@@ -20,6 +20,10 @@ public class GameDataManager : MonoBehaviour
     {
         LoadGame();
     }
+    private void Awake()
+    {
+        LoadGame();
+    }
     public void SaveGame()
     {
         PlayerData playerData = new PlayerData
