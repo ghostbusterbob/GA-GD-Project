@@ -3,7 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class Scenemanager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameDataManager savingdataplayer;
+    public EnemyLocationSaving savingenemylocation;
+    public PickUp savingpickup;
+    
 
     void Start()
     {
@@ -15,6 +18,9 @@ public class Scenemanager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            savingdataplayer.SaveGame();
+            savingenemylocation.savingdata1();
+            savingpickup.savingsystemitems();
             switchMainMenu();
         }
     }
