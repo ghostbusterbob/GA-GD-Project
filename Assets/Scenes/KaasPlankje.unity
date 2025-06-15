@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 92c95de6db3322d4faec822fd048fad6, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -3301,6 +3301,10 @@ PrefabInstance:
       propertyPath: BulletUI
       value: 
       objectReference: {fileID: 643132415}
+    - target: {fileID: 2187648061176314941, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+      propertyPath: locationSaving
+      value: 
+      objectReference: {fileID: 193271549}
     - target: {fileID: 3069819167657862627, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.581

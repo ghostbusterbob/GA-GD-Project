@@ -38,13 +38,17 @@ public class EnemyLocationSaving : MonoBehaviour
     private void Awake()
     {
         enemylocationsavingsystem = this;
-        saveFilePath = Path.Combine(Application.persistentDataPath, "enemylocation.txt");
+        saveFilePath = Path.Combine(Application.persistentDataPath, "enemylocation.json");
     }
 
     private void Start()
     {
         LoadEnemyLocationsOrSpawn();
-        
+    }
+
+    public void savingdata1()
+    {
+        SaveEnemyLocations();
     }
 
     private void OnApplicationQuit()
@@ -68,47 +72,58 @@ public class EnemyLocationSaving : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
+
+        Debug.Log($"Enemy positions saved to {saveFilePath}");
     }
 
     private void LoadEnemyLocationsOrSpawn()
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            EnemyLocationData data = JsonUtility.FromJson<EnemyLocationData>(json);
-
-            if (data.enemyPositions != null && data.enemyPositions.Length > 0)
+            try
             {
-                int loadedCount = data.enemyPositions.Length;
-                enemyPositions = new Transform[maxEnemies];
+                string json = File.ReadAllText(saveFilePath);
+                EnemyLocationData data = JsonUtility.FromJson<EnemyLocationData>(json);
 
-                for (int i = 0; i < loadedCount; i++)
+                if (data != null && data.enemyPositions != null && data.enemyPositions.Length > 0)
                 {
-                    Vector3 pos = data.enemyPositions[i].ToVector3();
-                    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-                    GameObject enemy = Instantiate(enemyPrefab, pos, Quaternion.identity);
-                    enemy.tag = "Enemy";
-                    enemyPositions[i] = enemy.transform;
+                    int loadedCount = data.enemyPositions.Length;
+                    enemyPositions = new Transform[maxEnemies];
 
-                    Debug.Log($"Loaded enemy at {pos}");
+                    for (int i = 0; i < loadedCount; i++)
+                    {
+                        Vector3 pos = data.enemyPositions[i].ToVector3();
+                        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+                        GameObject enemy = Instantiate(enemyPrefab, pos, Quaternion.identity);
+                        enemy.tag = "Enemy";
+                        enemyPositions[i] = enemy.transform;
+
+                        Debug.Log($"Loaded enemy at {pos}");
+                    }
+
+                    for (int i = loadedCount; i < maxEnemies; i++)
+                    {
+                        Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
+                        randomPos.y = centerPoint.position.y;
+
+                        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+                        GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
+                        enemy.tag = "Enemy";
+
+                        enemyPositions[i] = enemy.transform;
+
+                        Debug.Log($"Spawned new enemy at {randomPos}");
+                    }
+
+                    return;
                 }
-                for (int i = loadedCount; i < maxEnemies; i++)
-                {
-                    Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-                    randomPos.y = centerPoint.position.y;
-
-                    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-                    GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-                    enemy.tag = "Enemy";
-
-                    enemyPositions[i] = enemy.transform;
-
-                    Debug.Log($"Spawned new enemy at {randomPos}");
-                }
-
-                return;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning("Failed to load enemy positions: " + ex.Message);
             }
         }
+
         SpawnEnemiesRandomly();
     }
 
@@ -126,6 +141,43 @@ public class EnemyLocationSaving : MonoBehaviour
             enemy.tag = "Enemy";
 
             enemyPositions[i] = enemy.transform;
+
+            Debug.Log($"Spawned enemy at {randomPos}");
+        }
+    }
+
+    public void respawnenemys()
+    {
+        int currentCount = 0;
+        for (int i = 0; i < enemyPositions.Length; i++)
+        {
+            if (enemyPositions[i] != null)
+                currentCount++;
+            else
+                enemyPositions[i] = null;
+        }
+
+        int enemiesToSpawn = maxEnemies - currentCount;
+
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
+            randomPos.y = centerPoint.position.y;
+
+            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
+            enemy.tag = "Enemy";
+
+            for (int j = 0; j < enemyPositions.Length; j++)
+            {
+                if (enemyPositions[j] == null)
+                {
+                    enemyPositions[j] = enemy.transform;
+                    break;
+                }
+            }
+
+            Debug.Log($"Respawned enemy at {randomPos}");
         }
     }
 }
