@@ -1482,6 +1482,11 @@ RectTransform:
   m_AnchoredPosition: {x: -766.13, y: 426.4}
   m_SizeDelta: {x: 372.2449, y: 46.5306}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &224891812 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3069819167657862627, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+  m_PrefabInstance: {fileID: 795284086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225204047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,6 +3239,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2454634519608151991, guid: 3f38339fb85e72946bef7424062e5797, type: 3}
+--- !u!1 &570474621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570474622}
+  m_Layer: 0
+  m_Name: ADS Target1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &570474622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570474621}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.031005198, y: -0.009870454, z: 0.015555685, w: 0.9993494}
+  m_LocalPosition: {x: -0.001, y: -0.158, z: 0.513}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 224891812}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578517751 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3455292422214010178, guid: 3f38339fb85e72946bef7424062e5797, type: 3}
@@ -3841,9 +3877,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6c7e8baef1f504e9f1b766b8108a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 224891812}
   gun: {fileID: 808593826}
-  ADSTarget: {fileID: 808593826}
+  ADSTarget: {fileID: 570474621}
   muzzleFlash: {fileID: 1345977296}
   shooting: {fileID: 294596727}
   recoilX: -100
@@ -4472,9 +4508,16 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8542868833684413494, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+      propertyPath: m_TaaSettings.m_FrameInfluence
+      value: 0.100000024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3069819167657862627, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 570474622}
     - targetCorrespondingSourceObject: {fileID: 3047686506492174359, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 668348261}
@@ -8836,9 +8879,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6c7e8baef1f504e9f1b766b8108a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 224891812}
   gun: {fileID: 912548318}
-  ADSTarget: {fileID: 912548318}
+  ADSTarget: {fileID: 570474621}
   muzzleFlash: {fileID: 1461357564}
   shooting: {fileID: 294596727}
   recoilX: -100

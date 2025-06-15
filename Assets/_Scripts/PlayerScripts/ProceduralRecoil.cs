@@ -85,6 +85,7 @@ public class Recoi : MonoBehaviour
         }
         else
         {
+            gun.transform.position = Vector3.Lerp(gun.transform.position, transform.position, Time.deltaTime * 10f);
             recoilX = originalRecoilX;
             recoilY = originalRecoilY;
             recoilZ = originalRecoilZ;
@@ -99,8 +100,10 @@ public class Recoi : MonoBehaviour
     IEnumerator AutomaticFire()
     {
         isShooting = true;
-        while (Input.GetKey(KeyCode.Mouse0))
+        while (Input.GetKey(KeyCode.Mouse0) && shooting.bulletCount >= 0)
         {
+            shooting.weapon();
+
             ApplyRecoil();
             shooting.weapon();
             muzzleFlash.SetActive(true);
