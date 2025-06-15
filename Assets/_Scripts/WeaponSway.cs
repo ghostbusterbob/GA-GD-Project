@@ -39,7 +39,6 @@ public class WeaponSway : MonoBehaviour
 
     void Update()
     {
-        // Adjust bobbing speed for sprinting
         bobbingSpeed = Input.GetKey(KeyCode.LeftShift) ? 23f : 18f;
 
         float horizontal = Input.GetAxis("Horizontal");

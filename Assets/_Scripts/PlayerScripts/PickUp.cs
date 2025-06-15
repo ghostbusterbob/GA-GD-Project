@@ -102,7 +102,6 @@ public class PickUp : MonoBehaviour
 
             if (matchInventory != null)
             {
-                // Disable previously active inventory item, if any
                 if (currentItemIndex >= 0 && currentItemIndex < inventoryInHands.Count)
                 {
                     inventoryInHands[currentItemIndex].SetActive(false);
@@ -208,7 +207,6 @@ public class PickUp : MonoBehaviour
 
         foreach (string name in data.pickedUpObjectNames)
         {
-            // Find matching object in the scene
             GameObject sceneObject = GameObject.Find(name);
             if (sceneObject != null)
             {
@@ -233,7 +231,6 @@ public class PickUp : MonoBehaviour
             }
         }
 
-        // Activate first item if available
         if (inventoryInHands.Count > 0)
         {
             currentItemIndex = 0;
