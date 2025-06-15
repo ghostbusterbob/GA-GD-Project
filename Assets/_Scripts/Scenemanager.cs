@@ -20,7 +20,7 @@ public class Scenemanager : MonoBehaviour
         {
             savingdataplayer.SaveGame();
             savingenemylocation.savingdata1();
-            savingpickup.savingsystemitems();
+            savingpickup.SaveInventory();
             switchMainMenu();
         }
     }
