@@ -47,16 +47,11 @@ public class PickUp : MonoBehaviour
             Drop();
         }
 
-
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchItem(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            SwitchItem(1);
-        }
+        
 
         if (lerping && currentItemIndex >= 0)
         {

@@ -47,7 +47,6 @@ public class WeaponSway : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
         float mouseY = Input.GetAxisRaw("Mouse Y");
 
-        // Bobbing calculation
         timer += bobbingSpeed * Time.deltaTime;
         if (timer > Mathf.PI * 2) timer -= Mathf.PI * 2;
 
@@ -63,7 +62,6 @@ public class WeaponSway : MonoBehaviour
             midpoint.z
         );
 
-        // Mouse sway for position (inverted)
         Vector3 mouseSway = new Vector3(
             -mouseX * swayAmount,
             -mouseY * swayAmount,
@@ -75,7 +73,6 @@ public class WeaponSway : MonoBehaviour
         Vector3 recoilOffset = recoilScript != null ? recoilScript.GetRecoilOffset() : Vector3.zero;
         Quaternion recoilRot = recoilScript != null ? recoilScript.GetRecoilRotation() : Quaternion.identity;
 
-        // Fall effect
         Vector3 fallEffect = Vector3.zero;
         Quaternion fallTilt = Quaternion.identity;
         if (playerRigidbody != null && playerRigidbody.linearVelocity.y < -1f)
@@ -87,16 +84,13 @@ public class WeaponSway : MonoBehaviour
             fallTilt = Quaternion.Euler(fallAngle, 0f, fallAngle * 0.5f);
         }
 
-        // Final position
         Vector3 targetPosition = swayPosition + mouseSway + recoilOffset + fallEffect;
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * swaySmooth);
 
-        // Mouse sway for rotation
         Quaternion swayRotX = Quaternion.AngleAxis(-mouseY * rotationSwayAmount, Vector3.right);
         Quaternion swayRotY = Quaternion.AngleAxis(mouseX * rotationSwayAmount, Vector3.up);
         Quaternion swayRotation = swayRotX * swayRotY;
 
-        // Final rotation
         Quaternion targetRotation = swayRotation * recoilRot * fallTilt;
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * rotationSwaySmooth);
     }
