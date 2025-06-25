@@ -23,6 +23,10 @@ public class HealthSystem : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "Healthsave.txt");
         LoadHealthData();
     }
+    private void Start()
+    {
+        LoadHealthData();
+    }
     private void Update()
     {
         healthText.text = " Health " + currentHealth;

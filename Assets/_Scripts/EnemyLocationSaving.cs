@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyLocationData
 {
     public SerializableVector3[] enemyPositions;
+    public int wave;
 }
 
 [System.Serializable]
@@ -49,16 +50,19 @@ public class EnemyLocationSaving : MonoBehaviour
     {
         enemylocationsavingsystem = this;
         saveFilePath = Path.Combine(Application.persistentDataPath, "enemylocation.json");
+
     }
 
     private void Start()
     {
         LoadEnemyLocationsOrSpawn();
+        Debug.Log($"Save file path: {saveFilePath}");
     }
 
     private void Update()
     {
         Debug.Log($"Current enemies spawned: {enemiesSpawned}");
+
     }
 
     private void OnApplicationQuit()
@@ -77,6 +81,7 @@ public class EnemyLocationSaving : MonoBehaviour
             return;
 
         EnemyLocationData data = new EnemyLocationData();
+        data.wave = wave;
         data.enemyPositions = new SerializableVector3[enemiesSpawned];
 
         int index = 0;
@@ -84,6 +89,7 @@ public class EnemyLocationSaving : MonoBehaviour
         {
             if (enemyPositions[i] != null)
             {
+                data.wave = wave;
                 data.enemyPositions[index] = new SerializableVector3(enemyPositions[i].position);
                 index++;
             }
@@ -95,7 +101,7 @@ public class EnemyLocationSaving : MonoBehaviour
         Debug.Log($"Enemy positions saved to {saveFilePath}");
     }
 
-    private void LoadEnemyLocationsOrSpawn()
+    public void LoadEnemyLocationsOrSpawn()
     {
         if (File.Exists(saveFilePath))
         {
@@ -107,6 +113,9 @@ public class EnemyLocationSaving : MonoBehaviour
                 if (data != null && data.enemyPositions != null && data.enemyPositions.Length > 0)
                 {
                     int loadedCount = data.enemyPositions.Length;
+                    wave = data.wave;
+                    CheckWave();
+                    waveText.text = "Current wave " + wave.ToString();
                     enemyPositions = new Transform[maxEnemies];
                     enemiesSpawned = 0;
 
