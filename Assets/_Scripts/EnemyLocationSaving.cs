@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyLocationData
 {
     public SerializableVector3[] enemyPositions;
+    public int maxEnemies;
     public int wave;
 }
 
@@ -40,7 +41,7 @@ public class EnemyLocationSaving : MonoBehaviour
     private string saveFilePath;
 
     private int enemiesSpawned;
-    private int wave;
+    [SerializeField ]private int wave;
 
 
 
@@ -82,6 +83,7 @@ public class EnemyLocationSaving : MonoBehaviour
 
         EnemyLocationData data = new EnemyLocationData();
         data.wave = wave;
+        data.maxEnemies = maxEnemies;
         data.enemyPositions = new SerializableVector3[enemiesSpawned];
 
         int index = 0;
@@ -89,7 +91,6 @@ public class EnemyLocationSaving : MonoBehaviour
         {
             if (enemyPositions[i] != null)
             {
-                data.wave = wave;
                 data.enemyPositions[index] = new SerializableVector3(enemyPositions[i].position);
                 index++;
             }
@@ -114,11 +115,9 @@ public class EnemyLocationSaving : MonoBehaviour
                 {
                     int loadedCount = data.enemyPositions.Length;
                     wave = data.wave;
-                    CheckWave();
-                    waveText.text = "Current wave " + wave.ToString();
+                    maxEnemies = data.maxEnemies;
                     enemyPositions = new Transform[maxEnemies];
-                    enemiesSpawned = 0;
-
+                    enemiesSpawned = maxEnemies;
                     for (int i = 0; i < loadedCount && i < maxEnemies; i++)
                     {
                         Vector3 pos = data.enemyPositions[i].ToVector3();
