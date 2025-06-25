@@ -10,19 +10,23 @@ public class Spawner : MonoBehaviour
     public int currentEnemies = 0;
     public EnemyLocationSaving enemyLocationSaving;
 
+    private int wave;
+
     public void Start()
     {
         InvokeRepeating("SpawnEnemy", spawnDelay, spawnTime);
     }
 
-    void SpawnEnemy()
-    {
-        // Do not spawn if max enemies reached or arrays are empty
-        if (currentEnemies >= maxEnemies || enemies.Length == 0 || spawnPoints.Length == 0)
-            return;
-    }
+    //
     public void enemykilled()
+{
+    currentEnemies = Mathf.Max(0, currentEnemies - 1);
+    enemyLocationSaving.killEnemy();
+    Debug.Log("killed enemy");
+}
+
+    void Update()
     {
-        currentEnemies =- 1;
+       
     }
 }

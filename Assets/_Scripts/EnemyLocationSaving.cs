@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class EnemyLocationData
@@ -28,12 +29,21 @@ public class EnemyLocationSaving : MonoBehaviour
 
     [Header("Enemy Spawning")]
     public GameObject[] enemyPrefabs;
-    public int maxEnemies = 5;
+    public int maxEnemies = 1;
     public float spawnRadius = 10f;
     public Transform centerPoint;
 
+    [SerializeField] Text waveText;
+
     private Transform[] enemyPositions;
     private string saveFilePath;
+
+    private int enemiesSpawned;
+    private int wave;
+
+
+
+    private bool hasCheckedWave = false;
 
     private void Awake()
     {
@@ -46,12 +56,17 @@ public class EnemyLocationSaving : MonoBehaviour
         LoadEnemyLocationsOrSpawn();
     }
 
-    public void savingdata1()
+    private void Update()
+    {
+        Debug.Log($"Current enemies spawned: {enemiesSpawned}");
+    }
+
+    private void OnApplicationQuit()
     {
         SaveEnemyLocations();
     }
 
-    private void OnApplicationQuit()
+    public void savingdata1()
     {
         SaveEnemyLocations();
     }
@@ -62,12 +77,16 @@ public class EnemyLocationSaving : MonoBehaviour
             return;
 
         EnemyLocationData data = new EnemyLocationData();
-        data.enemyPositions = new SerializableVector3[enemyPositions.Length];
+        data.enemyPositions = new SerializableVector3[enemiesSpawned];
 
+        int index = 0;
         for (int i = 0; i < enemyPositions.Length; i++)
         {
             if (enemyPositions[i] != null)
-                data.enemyPositions[i] = new SerializableVector3(enemyPositions[i].position);
+            {
+                data.enemyPositions[index] = new SerializableVector3(enemyPositions[i].position);
+                index++;
+            }
         }
 
         string json = JsonUtility.ToJson(data, true);
@@ -89,30 +108,23 @@ public class EnemyLocationSaving : MonoBehaviour
                 {
                     int loadedCount = data.enemyPositions.Length;
                     enemyPositions = new Transform[maxEnemies];
+                    enemiesSpawned = 0;
 
-                    for (int i = 0; i < loadedCount; i++)
+                    for (int i = 0; i < loadedCount && i < maxEnemies; i++)
                     {
                         Vector3 pos = data.enemyPositions[i].ToVector3();
                         GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
                         GameObject enemy = Instantiate(enemyPrefab, pos, Quaternion.identity);
                         enemy.tag = "Enemy";
                         enemyPositions[i] = enemy.transform;
+                        enemiesSpawned++;
 
                         Debug.Log($"Loaded enemy at {pos}");
                     }
 
                     for (int i = loadedCount; i < maxEnemies; i++)
                     {
-                        Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-                        randomPos.y = centerPoint.position.y;
-
-                        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-                        GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-                        enemy.tag = "Enemy";
-
-                        enemyPositions[i] = enemy.transform;
-
-                        Debug.Log($"Spawned new enemy at {randomPos}");
+                        SpawnEnemyAtIndex(i);
                     }
 
                     return;
@@ -130,54 +142,87 @@ public class EnemyLocationSaving : MonoBehaviour
     private void SpawnEnemiesRandomly()
     {
         enemyPositions = new Transform[maxEnemies];
+        enemiesSpawned = 0;
 
         for (int i = 0; i < maxEnemies; i++)
         {
-            Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-            randomPos.y = centerPoint.position.y;
-
-            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-            GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-            enemy.tag = "Enemy";
-
-            enemyPositions[i] = enemy.transform;
-
-            Debug.Log($"Spawned enemy at {randomPos}");
+            SpawnEnemyAtIndex(i);
         }
     }
 
+    private void SpawnEnemyAtIndex(int index)
+    {
+        Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
+        randomPos.y = centerPoint.position.y;
+
+        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
+        enemy.tag = "Enemy";
+
+        if (enemyPositions.Length <= index)
+        {
+            System.Array.Resize(ref enemyPositions, maxEnemies);
+        }
+
+        enemyPositions[index] = enemy.transform;
+        enemiesSpawned++;
+
+        Debug.Log($"Spawned enemy at {randomPos}");
+    }
+
+    public void CheckWave()
+    {
+        if (enemiesSpawned <= 0 && !hasCheckedWave)
+        {
+            hasCheckedWave = true;  // Prevent re-entry while respawning
+            wave++;
+            maxEnemies++;
+            Debug.Log($"Wave {wave} starting. Increasing maxEnemies to {maxEnemies}");
+            respawnenemys();
+            waveText.text = "Current wave " + wave.ToString();
+        }
+    }
+
+
+    public void killEnemy()
+{
+    enemiesSpawned = Mathf.Max(0, enemiesSpawned - 1);  // ✅ Safe decrement
+    CheckWave();
+}
+
+
     public void respawnenemys()
     {
+        if (enemyPositions == null || enemyPositions.Length < maxEnemies)
+        {
+            System.Array.Resize(ref enemyPositions, maxEnemies);
+        }
+
         int currentCount = 0;
         for (int i = 0; i < enemyPositions.Length; i++)
         {
             if (enemyPositions[i] != null)
                 currentCount++;
-            else
-                enemyPositions[i] = null;
         }
 
         int enemiesToSpawn = maxEnemies - currentCount;
+        int spawned = 0;
 
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-            randomPos.y = centerPoint.position.y;
-
-            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-            GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-            enemy.tag = "Enemy";
-
             for (int j = 0; j < enemyPositions.Length; j++)
             {
                 if (enemyPositions[j] == null)
                 {
-                    enemyPositions[j] = enemy.transform;
+                    SpawnEnemyAtIndex(j);
+                    spawned++;
                     break;
                 }
             }
-
-            Debug.Log($"Respawned enemy at {randomPos}");
         }
+
+        enemiesSpawned += spawned;  // ✅ Correctly increment by how many were actually spawned
+        hasCheckedWave = false;     // ✅ Reset the wave checker for the next round
     }
+
 }
