@@ -161,6 +161,8 @@ public class EnemyLocationSaving : MonoBehaviour
         }
 
         wave = 1;
+        enemiesSpawned = 1;
+        maxEnemies = 1;
         SpawnEnemiesRandomly();
     }
 
