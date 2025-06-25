@@ -40,7 +40,7 @@ TagManager:
   - 
   - Arms
   - 
-  - 
+  - MapBlip
   m_SortingLayers:
   - name: Default
     uniqueID: 0
