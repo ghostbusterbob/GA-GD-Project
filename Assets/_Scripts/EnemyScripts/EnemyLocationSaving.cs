@@ -198,9 +198,8 @@ public class EnemyLocationSaving : MonoBehaviour
             hasCheckedWave = true;
             wave++;
             maxEnemies++;
-            Debug.Log($"Wave {wave} starting. Increasing maxEnemies to {maxEnemies}");
+            //enemiesSpawned++;
             respawnenemys();
-            maxEnemies = enemiesSpawned;
         }
     }
 
