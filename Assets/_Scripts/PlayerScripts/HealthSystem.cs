@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class HealthSystem : MonoBehaviour
     {
         instanceHealth = this;
         saveFilePath = Path.Combine(Application.persistentDataPath, "Healthsave.txt");
+        LoadHealthData();
+    }
+    private void Start()
+    {
         LoadHealthData();
     }
     private void Update()
