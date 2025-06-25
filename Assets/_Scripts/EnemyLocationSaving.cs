@@ -143,7 +143,7 @@ public class EnemyLocationSaving : MonoBehaviour
                 Debug.LogWarning("Failed to load enemy positions: " + ex.Message);
             }
         }
-
+        wave = 1; // Reset wave if loading fails or no data exists
         SpawnEnemiesRandomly();
     }
 
