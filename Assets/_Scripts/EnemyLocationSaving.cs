@@ -40,7 +40,7 @@ public class EnemyLocationSaving : MonoBehaviour
     private string saveFilePath;
 
     private int enemiesSpawned;
-    private int wave;
+    public int wave;
 
 
 
