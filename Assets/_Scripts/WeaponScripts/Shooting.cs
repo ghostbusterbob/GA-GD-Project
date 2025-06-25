@@ -48,9 +48,7 @@ public class Shooting : MonoBehaviour
             {
                 Debug.Log("Hit");
                 xp.AddXpOnEnemyDeath();
-                // recoil force
                 Destroy(hit.transform.gameObject);
-                Spawner.enemykilled();
                 locationSaving.killEnemy();
             }
         }
