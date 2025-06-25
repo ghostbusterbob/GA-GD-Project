@@ -28,6 +28,9 @@ public struct SerializableVector3
 
 public class EnemyLocationSaving : MonoBehaviour
 {
+    [Header("Spawn Points")]
+[SerializeField] private Transform[] spawnPoints;
+
     public static EnemyLocationSaving enemylocationsavingsystem;
 
     [Header("Enemy Spawning")]
@@ -167,24 +170,26 @@ public class EnemyLocationSaving : MonoBehaviour
     }
 
     private void SpawnEnemyAtIndex(int index)
+{
+    // Pick a spawn point using modulo to loop if more enemies than spawn points
+    Transform spawnPoint = spawnPoints[index % spawnPoints.Length];
+    Vector3 spawnPosition = spawnPoint.position;
+
+    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+    GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    enemy.tag = "Enemy";
+
+    if (enemyPositions.Length <= index)
     {
-        Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-        randomPos.y = centerPoint.position.y;
-
-        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-        enemy.tag = "Enemy";
-
-        if (enemyPositions.Length <= index)
-        {
-            System.Array.Resize(ref enemyPositions, maxEnemies);
-        }
-
-        enemyPositions[index] = enemy.transform;
-        enemiesSpawned++;
-
-        Debug.Log($"Spawned enemy at {randomPos}");
+        System.Array.Resize(ref enemyPositions, maxEnemies);
     }
+
+    enemyPositions[index] = enemy.transform;
+    enemiesSpawned++;
+
+    Debug.Log($"Spawned enemy at {spawnPosition}");
+}
+
 
     public void CheckWave()
     {
