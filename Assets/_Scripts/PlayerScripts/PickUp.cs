@@ -16,6 +16,7 @@ public class PickUp : MonoBehaviour
     [SerializeField] Camera camera;
     [SerializeField] GameObject PickupDropLocation;
     [SerializeField] LineRenderer render;
+    [SerializeField] private EnemyLocationSaving enemyLocationSaving;
 
     public LayerMask layerMask;
 
