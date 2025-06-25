@@ -42,8 +42,8 @@ public class EnemyLocationSaving : MonoBehaviour
     private Transform[] enemyPositions;
     private string saveFilePath;
 
-    private int enemiesSpawned;
-    [SerializeField ]private int wave;
+    [SerializeField] private int enemiesSpawned;
+    [SerializeField] private int wave;
 
 
 
@@ -133,7 +133,6 @@ public class EnemyLocationSaving : MonoBehaviour
                     enemiesSpawned = data.enemiesSpawned;
                     maxEnemies = data.maxEnemies;
                     enemyPositions = new Transform[maxEnemies];
-                    enemiesSpawned = maxEnemies;
                     for (int i = 0; i < loadedCount && i < maxEnemies; i++)
                     {
                         Vector3 pos = data.enemyPositions[i].ToVector3();
@@ -159,7 +158,7 @@ public class EnemyLocationSaving : MonoBehaviour
                 Debug.LogWarning("Failed to load enemy positions: " + ex.Message);
             }
         }
-        wave = 1; // Reset wave if loading fails or no data exists
+        wave = 1;
         SpawnEnemiesRandomly();
     }
 
@@ -190,7 +189,6 @@ public class EnemyLocationSaving : MonoBehaviour
 
         enemyPositions[index] = enemy.transform;
         enemiesSpawned++;
-
         Debug.Log($"Spawned enemy at {randomPos}");
     }
 
@@ -198,23 +196,21 @@ public class EnemyLocationSaving : MonoBehaviour
     {
         if (enemiesSpawned <= 0 && !hasCheckedWave)
         {
-            hasCheckedWave = true;  // Prevent re-entry while respawning
+            hasCheckedWave = true;
             wave++;
             maxEnemies++;
             Debug.Log($"Wave {wave} starting. Increasing maxEnemies to {maxEnemies}");
             respawnenemys();
-            currentenemys.text = "Current enemies: " + enemiesSpawned.ToString();
-            waveText.text = "Current wave " + wave.ToString();
+            maxEnemies = enemiesSpawned;
         }
     }
 
 
     public void killEnemy()
-{
-    enemiesSpawned = Mathf.Max(0, enemiesSpawned - 1);  // ✅ Safe decrement
-    
-    CheckWave();
-}
+    {
+        enemiesSpawned = Mathf.Max(0, enemiesSpawned - 1);  // ✅ Safe decrement
+        CheckWave();
+    }
 
 
     public void respawnenemys()
