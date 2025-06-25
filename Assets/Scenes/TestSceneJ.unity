@@ -4394,6 +4394,7 @@ MonoBehaviour:
   returnAmount: 50
   isAutomatic: 1
   fireRate: 0.1
+  controller: {fileID: 0}
   fireCooldown: 0.5
 --- !u!114 &668348263
 MonoBehaviour:
@@ -9731,6 +9732,7 @@ MonoBehaviour:
   returnAmount: 50
   isAutomatic: 0
   fireRate: 0.1
+  controller: {fileID: 294596734}
   fireCooldown: 0.5
 --- !u!1 &1511499353 stripped
 GameObject:
@@ -9845,6 +9847,7 @@ MonoBehaviour:
   returnAmount: 50
   isAutomatic: 1
   fireRate: 0.1
+  controller: {fileID: 0}
   fireCooldown: 0.5
 --- !u!114 &1541122912
 MonoBehaviour:
