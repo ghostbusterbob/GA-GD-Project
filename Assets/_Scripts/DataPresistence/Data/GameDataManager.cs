@@ -34,10 +34,6 @@ public void SaveGame()
         {
             position = playerTransform.position,
         };
-
-
-
-
         string json = JsonUtility.ToJson(playerData);
         string path = Application.persistentDataPath + "/playerData.json";
         File.WriteAllText(path, json);
