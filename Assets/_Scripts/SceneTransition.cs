@@ -13,6 +13,7 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] private Transform settingsMenu;
     [SerializeField] private Button backButton;
     [SerializeField] Camera camera;
+    //public EnemyLocationSaving enemylocationsavingsystem;
 
     private bool isInSettings = false;
 
@@ -28,6 +29,7 @@ public class SceneTransition : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        //EnemyLocationSaving.enemylocationsavingsystem.LoadEnemyLocationsOrSpawn();
     }
 
     void Update()

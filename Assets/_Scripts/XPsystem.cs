@@ -35,6 +35,10 @@ public class XPsystem : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "xp_save.txt");
         LoadXpData();
     }
+    private void Start()
+    {
+        LoadXpData();
+    }
 
     private void OnApplicationQuit()
     {
