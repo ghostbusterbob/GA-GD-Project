@@ -1257,6 +1257,7 @@ MonoBehaviour:
   centerPoint: {fileID: 193271546}
   waveText: {fileID: 663069762}
   currentenemys: {fileID: 1359920307}
+  enemiesSpawned: 0
   wave: 0
 --- !u!114 &193271550
 MonoBehaviour:
@@ -7727,7 +7728,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 355
-  m_NavMeshData: {fileID: 23800000, guid: 1a8713b0d1afdaa4fbf5452910d625cc, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e6d5068162de0124b883f829c5606124, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1183163429
 GameObject:
