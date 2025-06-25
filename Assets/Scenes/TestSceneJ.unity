@@ -9724,12 +9724,12 @@ MonoBehaviour:
   ADSTarget: {fileID: 570474621}
   muzzleFlash: {fileID: 1111428761}
   shooting: {fileID: 294596727}
-  recoilX: -400
-  recoilY: 100
-  recoilZ: 100
+  recoilX: -300
+  recoilY: 200
+  recoilZ: 200
   kickBackZ: 5
-  snappiness: 80
-  returnAmount: 50
+  snappiness: 30
+  returnAmount: 70
   isAutomatic: 0
   fireRate: 0.1
   controller: {fileID: 294596734}
