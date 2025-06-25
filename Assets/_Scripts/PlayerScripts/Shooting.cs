@@ -13,7 +13,7 @@ public class Shooting : MonoBehaviour
     public EnemyLocationSaving locationSaving;
     void Start()
     {
-        
+
     }
     void Update()
     {
@@ -37,21 +37,17 @@ public class Shooting : MonoBehaviour
 
         if (bulletCount >= 0)
         {
- updateBulletUI();
-        bulletCount -= 1;
-        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
-        {
-
-
-            Debug.Log("Hit");
-            xp.AddXpOnEnemyDeath();
-            Destroy(hit.transform.gameObject);
-            Spawner.enemykilled();
-            locationSaving.respawnenemys();
+            updateBulletUI();
+            bulletCount -= 1;
+            if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
+            {
+                Debug.Log("Hit");
+                xp.AddXpOnEnemyDeath();
+                Destroy(hit.transform.gameObject);
+                Spawner.enemykilled();
+                locationSaving.respawnenemys();
+            }
         }
-
-        }
-       
     }
     void reload()
     {
