@@ -68,7 +68,13 @@ public class EnemyLocationSaving : MonoBehaviour
         waveText.text = "Current wave: " + wave;
         Debug.Log($"Current enemies spawned: {enemiesSpawned}");
     }
-
+    public void resetwaves()
+    {
+        wave = 1;
+        enemiesSpawned = 1;
+        maxEnemies = 1;
+        SaveEnemyLocations();
+    }
     private void OnApplicationQuit()
     {
         SaveEnemyLocations();
