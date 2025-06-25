@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class HealthSystem : MonoBehaviour
     public XPsystem xpSystem;
     private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
+        [SerializeField] private EnemyLocationSaving enemyLocationSaving;
+
 
     private string saveFilePath;
 
@@ -52,7 +55,7 @@ public class HealthSystem : MonoBehaviour
 
     private void DamageHealth()
     {
-        if (currentHealth > 0)
+        if (currentHealth >= 0)
         {
             currentHealth -= damage;
             currentHealth = Mathf.Max(currentHealth, 0);
@@ -102,10 +105,19 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead");
-            currentHealth = currentHealth + 100f;
+            backToMainMenu();
             SaveHealthData();
             XPsystem.instance.ResetXpData();
             player.SetActive(false);
+
         }
+    }
+
+    void backToMainMenu()
+    {
+        currentHealth = currentHealth + 100f;
+        enemyLocationSaving.wave = 1;
+        SceneManager.LoadScene("UI");
+
     }
 }
