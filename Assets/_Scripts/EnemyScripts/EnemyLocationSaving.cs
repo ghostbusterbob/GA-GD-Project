@@ -8,6 +8,7 @@ public class EnemyLocationData
     public SerializableVector3[] enemyPositions;
     public int maxEnemies;
     public int wave;
+    public int enemiesSpawned;
 }
 
 [System.Serializable]
@@ -27,6 +28,9 @@ public struct SerializableVector3
 
 public class EnemyLocationSaving : MonoBehaviour
 {
+    [Header("Spawn Points")]
+[SerializeField] private Transform[] spawnPoints;
+
     public static EnemyLocationSaving enemylocationsavingsystem;
 
     [Header("Enemy Spawning")]
@@ -35,15 +39,14 @@ public class EnemyLocationSaving : MonoBehaviour
     public float spawnRadius = 10f;
     public Transform centerPoint;
 
-    [SerializeField] Text waveText;
+    [SerializeField] private Text waveText;
+    [SerializeField] private Text currentenemys;
 
     private Transform[] enemyPositions;
     private string saveFilePath;
 
-    private int enemiesSpawned;
-    [SerializeField ]private int wave;
-
-
+    [SerializeField] private int enemiesSpawned;
+    [SerializeField] private int wave;
 
     private bool hasCheckedWave = false;
 
@@ -51,7 +54,6 @@ public class EnemyLocationSaving : MonoBehaviour
     {
         enemylocationsavingsystem = this;
         saveFilePath = Path.Combine(Application.persistentDataPath, "enemylocation.json");
-
     }
 
     private void Start()
@@ -62,10 +64,17 @@ public class EnemyLocationSaving : MonoBehaviour
 
     private void Update()
     {
+        currentenemys.text = "Current enemies: " + enemiesSpawned;
+        waveText.text = "Current wave: " + wave;
         Debug.Log($"Current enemies spawned: {enemiesSpawned}");
-
     }
-
+    public void resetwaves()
+    {
+        wave = 1;
+        enemiesSpawned = 1;
+        maxEnemies = 1;
+        SaveEnemyLocations();
+    }
     private void OnApplicationQuit()
     {
         SaveEnemyLocations();
@@ -76,29 +85,36 @@ public class EnemyLocationSaving : MonoBehaviour
         SaveEnemyLocations();
     }
 
+    public void changeWave(int wavecount)
+    {
+        wave = wavecount;
+    }
+
     private void SaveEnemyLocations()
     {
         if (enemyPositions == null || enemyPositions.Length == 0)
             return;
 
-        EnemyLocationData data = new EnemyLocationData();
-        data.wave = wave;
-        data.maxEnemies = maxEnemies;
-        data.enemyPositions = new SerializableVector3[enemiesSpawned];
+        EnemyLocationData data = new EnemyLocationData
+        {
+            wave = wave,
+            enemiesSpawned = enemiesSpawned,
+            maxEnemies = maxEnemies,
+            enemyPositions = new SerializableVector3[enemiesSpawned]
+        };
 
         int index = 0;
-        for (int i = 0; i < enemyPositions.Length; i++)
+        foreach (var pos in enemyPositions)
         {
-            if (enemyPositions[i] != null)
+            if (pos != null)
             {
-                data.enemyPositions[index] = new SerializableVector3(enemyPositions[i].position);
+                data.enemyPositions[index] = new SerializableVector3(pos.position);
                 index++;
             }
         }
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
-
         Debug.Log($"Enemy positions saved to {saveFilePath}");
     }
 
@@ -113,11 +129,12 @@ public class EnemyLocationSaving : MonoBehaviour
 
                 if (data != null && data.enemyPositions != null && data.enemyPositions.Length > 0)
                 {
-                    int loadedCount = data.enemyPositions.Length;
                     wave = data.wave;
+                    enemiesSpawned = 0;
                     maxEnemies = data.maxEnemies;
                     enemyPositions = new Transform[maxEnemies];
-                    enemiesSpawned = maxEnemies;
+
+                    int loadedCount = data.enemyPositions.Length;
                     for (int i = 0; i < loadedCount && i < maxEnemies; i++)
                     {
                         Vector3 pos = data.enemyPositions[i].ToVector3();
@@ -126,7 +143,6 @@ public class EnemyLocationSaving : MonoBehaviour
                         enemy.tag = "Enemy";
                         enemyPositions[i] = enemy.transform;
                         enemiesSpawned++;
-
                         Debug.Log($"Loaded enemy at {pos}");
                     }
 
@@ -144,6 +160,9 @@ public class EnemyLocationSaving : MonoBehaviour
             }
         }
 
+        wave = 1;
+        enemiesSpawned = 1;
+        maxEnemies = 1;
         SpawnEnemiesRandomly();
     }
 
@@ -159,45 +178,48 @@ public class EnemyLocationSaving : MonoBehaviour
     }
 
     private void SpawnEnemyAtIndex(int index)
+{
+    // Pick a spawn point using modulo to loop if more enemies than spawn points
+    Transform spawnPoint = spawnPoints[index % spawnPoints.Length];
+    Vector3 spawnPosition = spawnPoint.position;
+
+    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+    GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    enemy.tag = "Enemy";
+
+    if (enemyPositions.Length <= index)
     {
-        Vector3 randomPos = centerPoint.position + Random.insideUnitSphere * spawnRadius;
-        randomPos.y = centerPoint.position.y;
-
-        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-        enemy.tag = "Enemy";
-
-        if (enemyPositions.Length <= index)
-        {
-            System.Array.Resize(ref enemyPositions, maxEnemies);
-        }
-
-        enemyPositions[index] = enemy.transform;
-        enemiesSpawned++;
-
-        Debug.Log($"Spawned enemy at {randomPos}");
+        System.Array.Resize(ref enemyPositions, maxEnemies);
     }
+
+    enemyPositions[index] = enemy.transform;
+    enemiesSpawned++;
+
+    Debug.Log($"Spawned enemy at {spawnPosition}");
+}
+
 
     public void CheckWave()
     {
         if (enemiesSpawned <= 0 && !hasCheckedWave)
         {
-            hasCheckedWave = true;  // Prevent re-entry while respawning
+            hasCheckedWave = true;
             wave++;
             maxEnemies++;
-            Debug.Log($"Wave {wave} starting. Increasing maxEnemies to {maxEnemies}");
+            //enemiesSpawned++;
             respawnenemys();
-            waveText.text = "Current wave " + wave.ToString();
         }
     }
 
-
     public void killEnemy()
-{
-    enemiesSpawned = Mathf.Max(0, enemiesSpawned - 1);  // ✅ Safe decrement
-    CheckWave();
-}
-
+    {
+        if (enemiesSpawned > 0)
+        {
+            enemiesSpawned--;
+            Debug.Log("Enemy killed, enemies remaining: " + enemiesSpawned);
+            CheckWave();
+        }
+    }
 
     public void respawnenemys()
     {
@@ -229,8 +251,6 @@ public class EnemyLocationSaving : MonoBehaviour
             }
         }
 
-        enemiesSpawned += spawned;  // ✅ Correctly increment by how many were actually spawned
-        hasCheckedWave = false;     // ✅ Reset the wave checker for the next round
+        hasCheckedWave = false;
     }
-
 }

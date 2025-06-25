@@ -18,10 +18,9 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && pickup.pickedUpWeapon && bulletCount > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && pickup.pickedUpWeapon && bulletCount >= 0)
         {
             weapon();
-            bulletCount -= 1;
             updateBulletUI();
 
         }
@@ -34,6 +33,7 @@ public class Shooting : MonoBehaviour
         
     }
 
+
     public void weapon()
     {
         LayerMask layerMask = LayerMask.GetMask("Enemy");
@@ -44,14 +44,12 @@ public class Shooting : MonoBehaviour
             updateBulletUI();
             bulletCount -= 1;
 
-            if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
+            if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, 50f, layerMask))
             {
                 Debug.Log("Hit");
                 xp.AddXpOnEnemyDeath();
-                // recoil force
-                Destroy(hit.transform.gameObject);
-                Spawner.enemykilled();
                 locationSaving.killEnemy();
+                Destroy(hit.transform.gameObject);
             }
         }
     }

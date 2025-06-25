@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -14,7 +14,7 @@ public class HealthSystem : MonoBehaviour
     public XPsystem xpSystem;
     private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
-        [SerializeField] private EnemyLocationSaving enemyLocationSaving;
+    [SerializeField] private EnemyLocationSaving enemyLocationSaving;
 
 
     private string saveFilePath;
@@ -115,8 +115,11 @@ public class HealthSystem : MonoBehaviour
 
     void backToMainMenu()
     {
+                SceneManager.LoadScene("UI");
+
         currentHealth = currentHealth + 100f;
-        SceneManager.LoadScene("UI");
+        enemyLocationSaving.resetwaves();
+
 
     }
 }
