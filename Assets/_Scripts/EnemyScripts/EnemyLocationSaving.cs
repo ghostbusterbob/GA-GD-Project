@@ -80,14 +80,24 @@ public class EnemyLocationSaving : MonoBehaviour
         SaveEnemyLocations();
     }
 
+    public void changeWave(int wavecount)
+    {
+        wave = wavecount;
+        EnemyLocationData data = new EnemyLocationData();
+        data.wave = 1;
+        
+    }
+
     private void SaveEnemyLocations()
     {
         if (enemyPositions == null || enemyPositions.Length == 0)
             return;
 
         EnemyLocationData data = new EnemyLocationData();
+        
+        
         data.wave = wave;
-        data.enemiesSpawned = enemiesSpawned;   
+        data.enemiesSpawned = enemiesSpawned;
         data.maxEnemies = maxEnemies;
         data.enemyPositions = new SerializableVector3[enemiesSpawned];
 

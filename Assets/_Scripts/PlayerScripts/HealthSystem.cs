@@ -14,7 +14,7 @@ public class HealthSystem : MonoBehaviour
     public XPsystem xpSystem;
     private GameObject player;
     public TMPro.TextMeshProUGUI healthText;
-        [SerializeField] private EnemyLocationSaving enemyLocationSaving;
+    [SerializeField] private EnemyLocationSaving enemyLocationSaving;
 
 
     private string saveFilePath;
@@ -116,7 +116,9 @@ public class HealthSystem : MonoBehaviour
     void backToMainMenu()
     {
         currentHealth = currentHealth + 100f;
+        enemyLocationSaving.changeWave(1);
         SceneManager.LoadScene("UI");
+
 
     }
 }
