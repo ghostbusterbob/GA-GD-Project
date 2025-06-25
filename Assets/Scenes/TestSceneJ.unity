@@ -1256,6 +1256,7 @@ MonoBehaviour:
   spawnRadius: 0
   centerPoint: {fileID: 193271546}
   waveText: {fileID: 663069762}
+  wave: 0
 --- !u!114 &193271550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2320,6 +2321,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1479398673}
   xpSystem: {fileID: 193271545}
   healthText: {fileID: 1000689826}
+  enemyLocationSaving: {fileID: 0}
 --- !u!143 &294596734 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 1114291657379155245, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
@@ -9666,7 +9668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1505520410
 Transform:
   m_ObjectHideFlags: 0
