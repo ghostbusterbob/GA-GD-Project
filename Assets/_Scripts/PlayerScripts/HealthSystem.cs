@@ -115,9 +115,10 @@ public class HealthSystem : MonoBehaviour
 
     void backToMainMenu()
     {
+                SceneManager.LoadScene("UI");
+
         currentHealth = currentHealth + 100f;
         enemyLocationSaving.resetwaves();
-        SceneManager.LoadScene("UI");
 
 
     }
