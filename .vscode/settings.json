@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GA-GD-Project.sln"
+    "dotnet.defaultSolution": "GA-GD-Project.sln",
+    "dotnet.preferCSharpExtension": true
 }

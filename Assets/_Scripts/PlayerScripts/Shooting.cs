@@ -7,10 +7,10 @@ public class Shooting : MonoBehaviour
     [SerializeField] private TMP_Text BulletUI;
     public Camera camera;
     public PickUp pickup;
-    private int bulletCount = 30;
+    public int bulletCount = 30;
     public XPsystem xp;
     public Spawner Spawner;
-    //public XPSCRIPT xp;
+    public EnemyLocationSaving locationSaving;
     void Start()
     {
         
@@ -34,13 +34,24 @@ public class Shooting : MonoBehaviour
     {
         LayerMask layerMask = LayerMask.GetMask("Enemy");
         RaycastHit hit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+
+        if (bulletCount >= 0)
         {
+ updateBulletUI();
+        bulletCount -= 1;
+        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
+        {
+
+
             Debug.Log("Hit");
             xp.AddXpOnEnemyDeath();
             Destroy(hit.transform.gameObject);
             Spawner.enemykilled();
+            locationSaving.respawnenemys();
         }
+
+        }
+       
     }
     void reload()
     {
