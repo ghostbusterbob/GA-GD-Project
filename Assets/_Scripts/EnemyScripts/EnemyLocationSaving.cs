@@ -8,6 +8,7 @@ public class EnemyLocationData
     public SerializableVector3[] enemyPositions;
     public int maxEnemies;
     public int wave;
+    public int enemiesSpawned;
 }
 
 [System.Serializable]
@@ -36,6 +37,7 @@ public class EnemyLocationSaving : MonoBehaviour
     public Transform centerPoint;
 
     [SerializeField] Text waveText;
+    [SerializeField] Text currentenemys;
 
     private Transform[] enemyPositions;
     private string saveFilePath;
@@ -62,6 +64,8 @@ public class EnemyLocationSaving : MonoBehaviour
 
     private void Update()
     {
+        currentenemys.text = "Current enemies: " + enemiesSpawned.ToString();
+        waveText.text = "Current wave " + wave.ToString();
         Debug.Log($"Current enemies spawned: {enemiesSpawned}");
 
     }
@@ -83,6 +87,7 @@ public class EnemyLocationSaving : MonoBehaviour
 
         EnemyLocationData data = new EnemyLocationData();
         data.wave = wave;
+        data.enemiesSpawned = enemiesSpawned;   
         data.maxEnemies = maxEnemies;
         data.enemyPositions = new SerializableVector3[enemiesSpawned];
 
@@ -115,6 +120,7 @@ public class EnemyLocationSaving : MonoBehaviour
                 {
                     int loadedCount = data.enemyPositions.Length;
                     wave = data.wave;
+                    enemiesSpawned = data.enemiesSpawned;
                     maxEnemies = data.maxEnemies;
                     enemyPositions = new Transform[maxEnemies];
                     enemiesSpawned = maxEnemies;
@@ -187,6 +193,7 @@ public class EnemyLocationSaving : MonoBehaviour
             maxEnemies++;
             Debug.Log($"Wave {wave} starting. Increasing maxEnemies to {maxEnemies}");
             respawnenemys();
+            currentenemys.text = "Current enemies: " + enemiesSpawned.ToString();
             waveText.text = "Current wave " + wave.ToString();
         }
     }
@@ -195,6 +202,7 @@ public class EnemyLocationSaving : MonoBehaviour
     public void killEnemy()
 {
     enemiesSpawned = Mathf.Max(0, enemiesSpawned - 1);  // ✅ Safe decrement
+    
     CheckWave();
 }
 
