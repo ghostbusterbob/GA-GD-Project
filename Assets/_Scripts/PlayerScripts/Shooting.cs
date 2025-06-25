@@ -11,25 +11,29 @@ public class Shooting : MonoBehaviour
     public XPsystem xp;
     public Spawner Spawner;
     public EnemyLocationSaving locationSaving;
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject muzzleFlash;
+    [SerializeField] private CharacterController controller;
+    
+
+
     void Update()
     {
-
-        //Debug.Log(bulletCount);
         if (Input.GetKeyDown(KeyCode.Mouse0) && pickup.pickedUpWeapon && bulletCount > 0)
         {
             weapon();
             bulletCount -= 1;
             updateBulletUI();
+
         }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             reload();
         }
+
+        
     }
+
     public void weapon()
     {
         LayerMask layerMask = LayerMask.GetMask("Enemy");
@@ -37,22 +41,23 @@ public class Shooting : MonoBehaviour
 
         if (bulletCount >= 0)
         {
- updateBulletUI();
-        bulletCount -= 1;
-        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
-        {
+            updateBulletUI();
+            bulletCount -= 1;
 
-
-            Debug.Log("Hit");
-            xp.AddXpOnEnemyDeath();
-            Destroy(hit.transform.gameObject);
-            Spawner.enemykilled();
-            locationSaving.respawnenemys();
+            if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && bulletCount >= 0)
+            {
+                Debug.Log("Hit");
+                xp.AddXpOnEnemyDeath();
+                // recoil force
+                Destroy(hit.transform.gameObject);
+                Spawner.enemykilled();
+                locationSaving.killEnemy();
+            }
         }
-
-        }
-       
     }
+
+     
+
     void reload()
     {
         bulletCount = 30;
@@ -63,5 +68,4 @@ public class Shooting : MonoBehaviour
     {
         BulletUI.text = "30/" + bulletCount.ToString();
     }
-
 }
