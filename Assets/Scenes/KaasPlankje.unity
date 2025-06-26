@@ -735,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18578f2deb9af7642ac54b278929e3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints: []
   enemyPrefabs:
   - {fileID: 6577407266058752201, guid: f8cbb47ac89c9e149977e3e4bab47974, type: 3}
   - {fileID: 6577407266058752201, guid: f8cbb47ac89c9e149977e3e4bab47974, type: 3}
@@ -744,6 +745,10 @@ MonoBehaviour:
   maxEnemies: 5
   spawnRadius: 0
   centerPoint: {fileID: 193271546}
+  waveText: {fileID: 0}
+  currentenemys: {fileID: 0}
+  enemiesSpawned: 0
+  wave: 0
 --- !u!114 &193271550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1516,6 +1521,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1479398673}
   xpSystem: {fileID: 193271545}
   healthText: {fileID: 1000689826}
+  enemyLocationSaving: {fileID: 0}
 --- !u!1 &298279893 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2519092360280523269, guid: 3f38339fb85e72946bef7424062e5797, type: 3}
@@ -2747,6 +2753,8 @@ MonoBehaviour:
   returnAmount: 50
   isAutomatic: 1
   fireRate: 0.1
+  controller: {fileID: 0}
+  fireCooldown: 0.5
 --- !u!114 &668348263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5559,7 +5567,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 355
-  m_NavMeshData: {fileID: 23800000, guid: 1a8713b0d1afdaa4fbf5452910d625cc, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c15f1c1bdef3541439932bfd9b5bb31d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1183163429
 GameObject:
