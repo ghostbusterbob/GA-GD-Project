@@ -105,9 +105,10 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead");
-            backToMainMenu();
-            SaveHealthData();
+            currentHealth = 100f; // Reset health to 100 on death
             XPsystem.instance.ResetXpData();
+            SaveHealthData();
+            backToMainMenu();
             player.SetActive(false);
 
         }
