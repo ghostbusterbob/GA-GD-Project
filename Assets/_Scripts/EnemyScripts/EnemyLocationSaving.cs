@@ -28,10 +28,10 @@ public struct SerializableVector3
 
 public class EnemyLocationSaving : MonoBehaviour
 {
-    [Header("Spawn Points")]
-[SerializeField] private Transform[] spawnPoints;
-
     public static EnemyLocationSaving enemylocationsavingsystem;
+
+    [Header("Spawn Points")]
+    [SerializeField] private Transform[] spawnPoints;
 
     [Header("Enemy Spawning")]
     public GameObject[] enemyPrefabs;
@@ -49,6 +49,7 @@ public class EnemyLocationSaving : MonoBehaviour
     [SerializeField] private int wave;
 
     private bool hasCheckedWave = false;
+    private bool shouldSaveOnQuit = true;
 
     private void Awake()
     {
@@ -66,18 +67,12 @@ public class EnemyLocationSaving : MonoBehaviour
     {
         currentenemys.text = "Current enemies: " + enemiesSpawned;
         waveText.text = "Current wave: " + wave;
-        Debug.Log($"Current enemies spawned: {enemiesSpawned}");
     }
-    public void resetwaves()
-    {
-        wave = 1;
-        enemiesSpawned = 1;
-        maxEnemies = 1;
-        SaveEnemyLocations();
-    }
+
     private void OnApplicationQuit()
     {
-        SaveEnemyLocations();
+        if (shouldSaveOnQuit)
+            SaveEnemyLocations();
     }
 
     public void savingdata1()
@@ -88,6 +83,25 @@ public class EnemyLocationSaving : MonoBehaviour
     public void changeWave(int wavecount)
     {
         wave = wavecount;
+    }
+
+    public void ClearSavedData()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+            Debug.Log("Save file deleted.");
+        }
+
+        wave = 1;
+        enemiesSpawned = 0;
+        maxEnemies = 1;
+    }
+
+    public void resetwaves()
+    {
+        ClearSavedData();
+        SaveEnemyLocations();
     }
 
     private void SaveEnemyLocations()
@@ -178,26 +192,24 @@ public class EnemyLocationSaving : MonoBehaviour
     }
 
     private void SpawnEnemyAtIndex(int index)
-{
-    // Pick a spawn point using modulo to loop if more enemies than spawn points
-    Transform spawnPoint = spawnPoints[index % spawnPoints.Length];
-    Vector3 spawnPosition = spawnPoint.position;
-
-    GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-    GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-    enemy.tag = "Enemy";
-
-    if (enemyPositions.Length <= index)
     {
-        System.Array.Resize(ref enemyPositions, maxEnemies);
+        Transform spawnPoint = spawnPoints[index % spawnPoints.Length];
+        Vector3 spawnPosition = spawnPoint.position;
+
+        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        enemy.tag = "Enemy";
+
+        if (enemyPositions.Length <= index)
+        {
+            System.Array.Resize(ref enemyPositions, maxEnemies);
+        }
+
+        enemyPositions[index] = enemy.transform;
+        enemiesSpawned++;
+
+        Debug.Log($"Spawned enemy at {spawnPosition}");
     }
-
-    enemyPositions[index] = enemy.transform;
-    enemiesSpawned++;
-
-    Debug.Log($"Spawned enemy at {spawnPosition}");
-}
-
 
     public void CheckWave()
     {
@@ -206,7 +218,6 @@ public class EnemyLocationSaving : MonoBehaviour
             hasCheckedWave = true;
             wave++;
             maxEnemies++;
-            //enemiesSpawned++;
             respawnenemys();
         }
     }
@@ -236,7 +247,6 @@ public class EnemyLocationSaving : MonoBehaviour
         }
 
         int enemiesToSpawn = maxEnemies - currentCount;
-        int spawned = 0;
 
         for (int i = 0; i < enemiesToSpawn; i++)
         {
@@ -245,12 +255,25 @@ public class EnemyLocationSaving : MonoBehaviour
                 if (enemyPositions[j] == null)
                 {
                     SpawnEnemyAtIndex(j);
-                    spawned++;
                     break;
                 }
             }
         }
 
         hasCheckedWave = false;
+    }
+
+    // Call this when player dies
+    public void OnPlayerDeath()
+    {
+        shouldSaveOnQuit = false;
+        ClearSavedData();
+    }
+
+    // Call this when quitting normally
+    public void OnQuitToMenu()
+    {
+        shouldSaveOnQuit = true;
+        SaveEnemyLocations();
     }
 }
