@@ -120,6 +120,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1463176126711809063, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 2b7fd77845fb21441ad3eae8341d2bb4, type: 3}
+    - target: {fileID: 1463176126711809063, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9ef9b3af05799c64f858734dd24678c2, type: 2}
     - target: {fileID: 2790370878278841502, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -260,6 +268,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -4293002423828343548}
   m_SourcePrefab: {fileID: 100100000, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
+--- !u!95 &1576825749769116992 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1463176126711809063, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
+  m_PrefabInstance: {fileID: 120537558757153127}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4828472872329578298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4804797900703964765, guid: 13ac9a29e1cbace42b8e0cd620017012, type: 3}
@@ -283,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1851934909911486184, guid: d781704eb86d5e84e85e9b78e6fd2ba3, type: 3}
+  animator: {fileID: 1576825749769116992}
   agent: {fileID: 7718548202899693081}
 --- !u!195 &7718548202899693081
 NavMeshAgent:

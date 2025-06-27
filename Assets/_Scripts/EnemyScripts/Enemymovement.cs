@@ -9,7 +9,7 @@ public class Enemymovement : MonoBehaviour
 {
     public GameObject Player;
     float speed = 3f;
-    private Animator animator;
+    [SerializeField] private Animator animator;
     public NavMeshAgent agent;
 
 
@@ -18,6 +18,7 @@ public class Enemymovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
+        animator.SetBool("IsWalking", true);
     }
     private void Update()
     {
@@ -28,7 +29,7 @@ public class Enemymovement : MonoBehaviour
     {
         if (collision.collider.gameObject == Player)
         {
-            
+            animator.SetBool("attac", true);
             Debug.Log($"doe het pls");
         }
     }
